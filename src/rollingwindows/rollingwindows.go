@@ -10,11 +10,20 @@ import (
 func main() {
 	windows := NewRollingWindows(4, 250*time.Millisecond)
 	ticker := time.NewTicker(50 * time.Millisecond)
+	i := 0
 	for range ticker.C {
+		i++
+		if i == 30 {
+			break
+		}
 		v := rand.Intn(10)
 		fmt.Print(v)
 		windows.Add(v)
 	}
+	time.Sleep(3 * time.Second)
+	v := rand.Intn(10) + 100
+	fmt.Print(v)
+	windows.Add(v)
 }
 
 type bucket struct {
@@ -66,7 +75,7 @@ func (rw *RollingWindows) UpdateOffset() {
 	span := rw.span()
 	if span > 0 {
 		offset := (span + rw.offset) % rw.size
-		if span > rw.size {
+		if span >= rw.size {
 			rw.win = NewBucket(rw.size)
 			rw.offset = 0
 		} else {
