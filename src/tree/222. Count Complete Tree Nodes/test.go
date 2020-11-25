@@ -76,3 +76,12 @@ func (this *MyStack) Top() *TreeNode {
 func (this *MyStack) Empty() bool {
 	return len(this.stack) == 0
 }
+
+//binarySearch
+func countNodes3(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	//TODO
+	return 0
+}
