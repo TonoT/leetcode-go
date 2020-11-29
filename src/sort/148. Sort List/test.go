@@ -25,21 +25,20 @@ type ListNode struct {
 }
 
 func sortList(head *ListNode) *ListNode {
-	s := make([]*ListNode, 0)
+	s := make([]int, 0)
 	for head != nil {
-		n := &ListNode{
-			Val: head.Val,
-		}
-		s = append(s, n)
+		s = append(s, head.Val)
 		head = head.Next
 	}
 	sort.Slice(s, func(i, j int) bool {
-		return s[i].Val < s[j].Val
+		return s[i] < s[j]
 	})
 	v := &ListNode{}
 	node := v
 	for _, i := range s {
-		node.Next = i
+		node.Next = &ListNode{
+			Val: i,
+		}
 		node = node.Next
 	}
 	return v.Next
