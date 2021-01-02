@@ -24,3 +24,31 @@ func canPlaceFlowers(flowerbed []int, n int) bool {
 	}
 	return false
 }
+func canPlaceFlowers2(flowerbed []int, n int) bool {
+	length := len(flowerbed)
+	i := 0
+	for i < length {
+		// 1. 种完了
+		if n <= 0 {
+			break
+		}
+
+		// 2. 当前格子已经种了花，则直接跳2格（因为相邻的即使为0也不能放）
+		if flowerbed[i] == 1 {
+			i += 2
+			continue
+		}
+
+		if (i == 0 || flowerbed[i-1] == 0) && (i == length-1 || flowerbed[i+1] == 0) {
+			flowerbed[i] = 1
+			n--
+		}
+
+		i++
+	}
+
+	if n != 0 {
+		return false
+	}
+	return true
+}
