@@ -33,8 +33,28 @@ func union(m []int, n1, n2 int) {
 }
 func find(m []int, n int) int {
 	for m[n] != n {
-		m[n] = m[m[n]]
 		n = m[n]
+		m[n] = m[m[n]]
 	}
 	return n
+}
+
+func findCircleNum2(isConnected [][]int) (ans int) {
+	vis := make([]bool, len(isConnected))
+	var dfs func(int)
+	dfs = func(from int) {
+		vis[from] = true
+		for to, conn := range isConnected[from] {
+			if conn == 1 && !vis[to] {
+				dfs(to)
+			}
+		}
+	}
+	for i, v := range vis {
+		if !v {
+			ans++
+			dfs(i)
+		}
+	}
+	return
 }
