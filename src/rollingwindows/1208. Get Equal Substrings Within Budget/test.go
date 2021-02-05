@@ -1,8 +1,23 @@
 package main
 
+import "fmt"
+
 func main() {
 
+	s := []int{1, 2, 3}
+	//t:=make([]int,0)
+	//t=append(t,s...)
+	//fmt.Println()
+	tt(s...)
+
 }
+
+func tt(a []int) {
+	for _, v := range a {
+		fmt.Println(v)
+	}
+}
+
 func equalSubstring(s string, t string, maxCost int) int {
 	dis := make([]int, len(s))
 	for i := 0; i < len(s); i++ {

@@ -31,3 +31,28 @@ func generateParenthesis(n int) (res []string) {
 	f(0, 0, s)
 	return
 }
+
+func generateParenthesis2(n int) (res []string) {
+
+	s := make([]byte, 0)
+	tt(0, 0, s, n, &res)
+	return
+}
+
+func tt(a, b int, s []byte, n int, res *[]string) {
+	if len(s) == 2*n {
+		*res = append(*res, string(s))
+		return
+	}
+	if a < n {
+		s = append(s, '(')
+		tt(a+1, b, s, n, res)
+		s = s[:len(s)-1]
+	}
+	if b < a {
+		s = append(s, ')')
+		tt(a, b+1, s, n, res)
+		s = s[:len(s)-1]
+	}
+
+}
